@@ -1,3 +1,5 @@
+import { Colors } from '../../constans/Colors'
+
 export const styles = {
   sortTableContainer: {
     width: '100%',
@@ -15,7 +17,7 @@ export const styles = {
     width: 100,
     height: 30,
     borderWidth: 2,
-    borderColor: '#7B7B7B',
+    borderColor: Colors.grey,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -24,5 +26,6 @@ export const styles = {
     fontSize: 12,
     lineHeight: 15,
     fontWeight: '600',
+    fontFamily: 'montserrat-semibold',
   },
 }

@@ -1,8 +1,10 @@
+import { Colors } from '../../constans/Colors'
+
 export const styles = {
   containerWrapper: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#F3F2F2',
+    backgroundColor: Colors.dirtyWhite,
     alignItems: 'center',
   },
   container: {

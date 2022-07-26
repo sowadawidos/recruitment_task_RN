@@ -1,3 +1,5 @@
+import { Colors } from '../../constans/Colors'
+
 export const styles = {
   imageContainer: {
     marginRight: 15,
@@ -7,7 +9,7 @@ export const styles = {
     height: '100%',
     borderRadius: '50%',
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },

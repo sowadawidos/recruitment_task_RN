@@ -1,3 +1,5 @@
+import { Colors } from '../../constans/Colors'
+
 export const styles = {
   newsfeedPostContainer: {
     paddingHorizontal: 18,
@@ -10,7 +12,8 @@ export const styles = {
   userPostText: {
     fontWeight: '600',
     fontSize: 14,
-    color: '#28235F',
+    color: Colors.darkblue,
+    fontFamily: 'montserrat-semibold',
   },
   userPostHeaderContainer: {
     flexDirection: 'row',
@@ -22,13 +25,16 @@ export const styles = {
     fontWeight: '600',
     fontSize: 13,
     lineHeight: 14,
-    color: '#28235F',
+    color: Colors.darkblue,
+    fontFamily: 'montserrat-semibold',
   },
   userPostContentText: {
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 14,
-    color: '#7B7B7B',
+    width: '80%',
+    fontFamily: 'montserrat-medium',
+    color: Colors.grey,
   },
   userPostContentMoreButton: {
     alignSelf: 'flex-end',
@@ -37,11 +43,27 @@ export const styles = {
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 14,
-    color: '#4FCBC2',
+    color: Colors.turquoise,
+    fontFamily: 'montserrat-semibold',
   },
   userPostContentTimePostedText: {
     fontSize: 10,
     fontWeight: '500',
-    color: '#7B7B7B',
+    color: Colors.grey,
+    fontFamily: 'montserrat-medium',
+  },
+  photoContainer: {
+    width: '100%',
+    height: 215,
+    marginTop: 12,
+    marginBottom: 5,
+    alignSelf: 'center',
+    borderRadius: 15,
+  },
+  photoImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 15,
   },
 }

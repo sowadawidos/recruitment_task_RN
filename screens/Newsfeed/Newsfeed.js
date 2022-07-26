@@ -1,52 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, Text, TextInput, View } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { SafeAreaView, View } from 'react-native'
 import { styles } from './styles.main'
 import { SortTable } from '../SortTable/SortTable'
 import { PostView } from '../PostView/PostView'
-import fetchData from '../../api'
 import { SearchInput } from '../../components/searchInput/searchInput'
+import { db } from '../../api/firebase'
+import { collection, getDocs } from 'firebase/firestore'
 
-export const Newsfeed = () => {
+export const Newsfeed = ({ navigation }) => {
   const [postTable, setPostTable] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const [numberOfPosts, setNumberOfPosts] = useState(10)
-  const [tableView, setTableView] = useState(0)
+  const [section, setSection] = useState('0')
+  const [postToDisplayArray, setPostToDisplayArray] = useState([])
 
   const getTableView = (id) => {
-    setTableView(id)
+    setSection(id)
   }
 
   async function fetchPosts() {
     setRefreshing(true)
 
     try {
-      const response = await fetchData('get', null, '', {
-        'content-type': 'application/json',
-      })
-
-      if (!response.data) throw Error
+      const querySnapshot = await getDocs(collection(db, 'post'))
 
       setTimeout(() => {
+        setPostTable([])
+        querySnapshot.forEach((doc) =>
+          setPostTable((prev) => [...prev, { ...doc.data(), id: doc.id }])
+        )
+
         setRefreshing(false)
-        postToDisplay(numberOfPosts, response.data)
       }, 500)
-    } catch {
+    } catch (e) {
       setTimeout(() => {
+        console.log(`Error ${e}`)
         setRefreshing(false)
       }, 500)
     }
   }
 
-  const postToDisplay = (number, data) => {
-    const filteredArray = data.slice(0, number)
-    setPostTable(filteredArray)
+  const postToDisplay = (number) => {
+    const filteredArray = postTable.slice(0, number)
+    filteredArray.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds)
+    setPostToDisplayArray(filteredArray)
   }
 
-  const onEndReached = async () => {
+  const onEndReached = () => {
     setNumberOfPosts((prev) => prev + 10)
+    postToDisplay(numberOfPosts)
+  }
+
+  const onListRefresh = async () => {
     await fetchPosts()
   }
+
+  useEffect(() => {
+    postToDisplay(numberOfPosts)
+  }, [postTable])
 
   useEffect(() => {
     fetchPosts()
@@ -59,12 +70,14 @@ export const Newsfeed = () => {
           <SearchInput />
         </View>
         <SortTable getTableView={getTableView} />
-        {tableView === 0 && (
+        {section === '0' && (
           <PostView
-            postTable={postTable}
-            fetchPosts={fetchPosts}
+            postTable={postToDisplayArray}
+            setPostToDisplayArray={setPostToDisplayArray}
+            onListRefresh={onListRefresh}
             refreshing={refreshing}
             onEndReached={onEndReached}
+            navigation={navigation}
           />
         )}
       </View>

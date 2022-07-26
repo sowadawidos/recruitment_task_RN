@@ -1,8 +1,10 @@
+import { Colors } from '../../constans/Colors'
+
 export const styles = {
   containerWrapper: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#F3F2F2',
+    backgroundColor: Colors.dirtyWhite,
     alignItems: 'center',
   },
   linearGradient: {
@@ -27,7 +29,7 @@ export const styles = {
   homeButton: {
     width: 250,
     height: 60,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -40,6 +42,6 @@ export const styles = {
     marginTop: 10,
     fontSize: 28,
     fontWeight: '500',
-    color: 'white',
+    color: Colors.white,
   },
 }
